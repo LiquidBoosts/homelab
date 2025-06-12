@@ -1,0 +1,79 @@
+pages:
+- name: monitor_board
+  path: 'monitor_board.yml'
+# Optional app settings and configuration
+appConfig:
+  theme: colorful
+
+# Main content - An array of sections, each containing an array of items
+sections:
+- name: Utilities
+  icon: fas fa-rocket
+  items:
+  - title: Change Detection
+    description: Monitor when there is a change on a website.
+    icon: changedetection.svg
+    url: http://192.168.8.208:5000/
+    target: newtab
+    statusCheck: true
+  - title: ArchiveBox
+    description: Save the pages
+    url: http://192.168.8.208:8000/
+    icon: archivebox.png
+    statusCheck: true
+  - title: ArchiSteamFarm
+    description: Save the pages
+    url: http://192.168.8.173:1242/
+    icon: archisteamfarm.png
+    statusCheck: true
+- name: Admin
+  icon: 
+  items:
+  - title: PVE
+    description: Proxmox
+    icon: proxmox.png
+    url: http://192.168.8.250:8006/
+- name: Proxmox
+  widgets:
+    - type: gl-current-cpu
+      options:
+       hostname: http://192.168.8.250:61208
+  options:
+
+- name: Alerts
+  widgets:
+    - type: gl-alerts
+      options:
+       hostname: http://192.168.8.250:61208
+- name: Private Services
+  icon:
+  items:
+  - title: nginx proxy manager
+    url: http://192.168.8.208:81/
+    statusCheck: true
+- name: media
+  icon: 
+  items:
+  - title: radarr
+    description: radarr
+    icon: radarr.png
+    url: http://192.168.8.208:7878
+    statusCheckUrl: http://192.168.8.208:7878/api/v3/system/status?apikey=${RADAR_API_KEY}
+    statusCheck: true
+  - title: sonarr
+    description: sonarr
+    icon: sonarr.png
+    url: http://192.168.8.208:8989
+    statusCheckUrl: http://192.168.8.208:8989/api/v3/system/status?apikey=${SONARR_API_KEY}
+    statusCheck: true
+  - title: qbittorrent
+    description: qbittorrent
+    icon: qbittorrent.png
+    url: http://192.168.8.208:8282
+    statusCheck: true
+  - title: prowlarr
+    description: prowlarr
+    icon: prowlarr.png
+    url: http://192.168.8.208:9696
+    statusCheckUrl: http://192.168.8.208:9696/api/v1/system/status?apikey=${PROWLARR_API_KEY}
+    statusCheck: true
