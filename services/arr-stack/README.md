@@ -26,3 +26,14 @@ The Arr stack manages automated media downloading and sorting. It connects index
         ├── music
         └── tv
 ```
+```bash
+/opt/arr
+├── compose.yml
+├── jellyfin
+├── jfago
+├── plex
+├── prowlarr
+├── qbittorrent
+├── radarr
+└── sonarr
+```
