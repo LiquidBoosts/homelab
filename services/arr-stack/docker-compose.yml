@@ -76,7 +76,7 @@ services:
     volumes:
       - /opt/arr/plex:/config
      # - /<host_folder_transcode>:/transcode
-      - /mnt/tank/arr/media:/data/media
+      - /mnt/tank/arr/:/data/media
   prowlarr:
     container_name: prowlarr
     image: ghcr.io/hotio/prowlarr
@@ -101,7 +101,7 @@ services:
       - TZ=Etc/UTC
     volumes:
       - /opt/arr/jellyfin:/config
-      - /mnt/tank/arr/media:/data
+      - /mnt/tank/arr/media:/data/media
   jfa-go:
     image: hrfee/jfa-go:latest
     container_name: jfa-go
@@ -111,5 +111,40 @@ services:
       # - "8057:8057"    # if you’d rather terminate TLS inside jfa-go
     volumes:
       - /opt/arr/jfago:/data    # Persist jfa-go config & DB
-      - /optarr/jellyfin:/jf   # Jellyfin config for password resets (optional)
+      - /opt/arr/jellyfin:/jf   # Jellyfin config for password resets (optional)
       - /etc/localtime:/etc/localtime:ro
+  jellyseerr:
+     image: fallenbagel/jellyseerr:latest
+     container_name: jellyseerr
+     environment:
+       - LOG_LEVEL=debug
+       - TZ=Asia/Tashkent
+     ports:
+       - "5055:5055"
+     volumes:
+       - /path/to/appdata/config:/app/config
+     restart: unless-stopped
+  flaresolverr:
+    # DockerHub mirror flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - TZ=Europe/London
+    ports:
+      - "${PORT:-8191}:8191"
+    restart: unless-stopped
+  qbitmanage:
+    container_name: qbitmanage
+    image: ghcr.io/hotio/qbitmanage
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+      - ARGS
+    volumes:
+      - /opt/arr/qbitmanage:/config
+      - /mnt/tank/arr:/data
