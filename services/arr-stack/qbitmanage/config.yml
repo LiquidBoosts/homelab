@@ -23,7 +23,7 @@ qbt:
   # Pass environment variables to the config via !ENV tag
   host: 192.168.8.208:8282
   user: admin
-  pass: REMOVED
+  pass: ${QBITTORRENT_PASSWORD}
 
 settings:
   force_auto_tmm: false # Will force qBittorrent to enable Automatic Torrent Management for each torrent.
